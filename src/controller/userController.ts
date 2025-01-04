@@ -79,5 +79,26 @@ export class UserController {
         }
     }
 
+    async getMonthlyReport(req: Request, res: Response): Promise<Response> {
+        try {
+            const { month, year } = req.query;
+
+            const parsedMonth = parseInt(month as string, 10);
+            const parsedYear = parseInt(year as string, 10);
+
+            if (isNaN(parsedMonth) || isNaN(parsedYear)) {
+                return res.status(400).json({ message: 'Parâmetros inválidos. Certifique-se de enviar mes e ano como números.' });
+            }
+
+            const { report, total } = await this.userService.getMonthlyReport(parsedMonth, parsedYear);
+            return res.status(200).json({
+                data: report,
+                total: total.toFixed(2),
+            });
+        } catch (error) {
+            return res.status(500).json({ message: 'Erro ao gerar o relatório mensal.' });
+        }
+    }
+
 
 }

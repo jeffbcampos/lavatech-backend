@@ -9,4 +9,5 @@ export interface IUserRepository {
     getAllMonthSchedules(): Promise<ISchedule[]>;
     getAllDaySchedules(): Promise<ISchedule[]>;
     getAvailableHours(date: Date): Promise<string[]>
+    getReportMonthSchedules(month: number, year: number): Promise<ISchedule[]>
 }

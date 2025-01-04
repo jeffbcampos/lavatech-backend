@@ -32,4 +32,10 @@ export class UserService {
     async getAvailableHours(date: Date): Promise<string[]> {
         return await this.userRepository.getAvailableHours(date);
     }
+
+    async getMonthlyReport(month: number, year: number): Promise<{ report: ISchedule[]; total: number }> {
+        const schedules = await this.userRepository.getReportMonthSchedules(month, year);
+        const total = schedules.reduce((acc, schedule) => acc + Number(schedule.price), 0);
+        return { report: schedules, total };
+    }
 }

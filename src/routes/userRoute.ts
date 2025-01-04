@@ -24,4 +24,7 @@ router.get('/schedule/day', async (req: Request, res: Response) => {
 router.get("/schedule/hours", async (req: Request, res: Response) => {
     await userController.getAvailableHours(req, res);
 });
+router.get("/report/month", async (req: Request, res: Response) => {
+    await userController.getMonthlyReport(req, res);
+});
 export default router;

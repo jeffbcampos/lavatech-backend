@@ -131,4 +131,36 @@ export class UserRepository implements IUserRepository {
     
         return allHours.filter((hour) => !bookedHours.includes(hour));
     }
+
+    async getReportMonthSchedules(month: number, year: number): Promise<ISchedule[]> {
+        const firstDay = new Date(year, month - 1, 1);
+        const lastDay = new Date(year, month, 0);
+
+        return await this.prisma.schedules.findMany({
+            where: {
+                date: {
+                    gte: firstDay,
+                    lte: lastDay,
+                },
+                hour: {
+                    gte: '08:00',
+                    lte: '19:00',
+                },
+            },
+            select: {
+                id: true,
+                cep: true,
+                address: true,
+                date: true,
+                hour: true,
+                name_client: true,
+                type_service: true,
+                price: true,
+            },
+            orderBy: [
+                { date: 'asc' },
+                { hour: 'asc' },
+            ],
+        });
+    }
 }
