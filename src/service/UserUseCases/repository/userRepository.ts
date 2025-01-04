@@ -127,7 +127,7 @@ export class UserRepository implements IUserRepository {
         });
     
         const allHours = Array.from({ length: 12 }, (_, i) => `${(i + 8).toString().padStart(2, '0')}:00`);
-        const bookedHours = schedules.map((schedule) => schedule.hour);
+        const bookedHours = schedules.map((schedule: any) => schedule.hour);
     
         return allHours.filter((hour) => !bookedHours.includes(hour));
     }

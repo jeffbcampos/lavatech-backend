@@ -1,6 +1,5 @@
 // filepath: /c:/Users/NatyeJeff/Documents/Projeto-Julio/src/app.ts
 import express, { Request, Response } from 'express';
-import swaggerUi from 'swagger-ui-express';
 import cors from 'cors';
 import router from './routes/userRoute';
 
