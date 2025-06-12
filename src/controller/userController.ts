@@ -87,7 +87,7 @@ export class UserController {
             const parsedYear = parseInt(year as string, 10);
 
             if (isNaN(parsedMonth) || isNaN(parsedYear)) {
-                return res.status(400).json({ message: 'Parâmetros inválidos. Certifique-se de enviar mes e ano como números.' });
+                return res.status(400).json({ msg: 'Parâmetros inválidos. Certifique-se de enviar mes e ano como números.' });
             }
 
             const { report, total } = await this.userService.getMonthlyReport(parsedMonth, parsedYear);
