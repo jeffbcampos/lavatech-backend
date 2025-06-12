@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model clients {
+  id        String      @id @db.Uuid
+  name      String      @db.VarChar(255)
+  address   String      @db.VarChar(255)
+  phone     String      @db.VarChar(20)
+  schedules schedules[]
+}
+
+model schedules {
+  id           String   @id @db.Uuid
+  name_client  String   @db.VarChar(255)
+  cep          String   @db.VarChar(20)
+  address      String   @db.VarChar(255)
+  type_service String   @db.VarChar(255)
+  price        Int
+  client_id    String?  @db.Uuid
+  date         DateTime @db.Date
+  hour         String?  @db.VarChar(10)
+  clients      clients? @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model user {
+  id       String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name     String? @db.VarChar(255)
+  email    String? @db.VarChar(255)
+  password String? @db.VarChar(255)
+}
